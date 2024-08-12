@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 //   onSnapshot,
 // } from "firebase/firestore";
 import FlipMove from "react-flip-move";
+import { v4 as uuidv4 } from 'uuid';
+
 
 type TodoItem = {
   id: string;
@@ -21,6 +23,10 @@ type TodoItem = {
 };
 
 function App() {
+  const [todoListTest,setTodoListTest]=useState([
+    {id:uuidv4(),todo:'test1',deadlineDate:'2024-09-09' }
+  ])
+
   const [additionalTodo, setAdditionalTodo] = useState<string>(""); //追加TODO
   const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
   const [todoList, setTodoList] = useState<TodoItem[]>([]); //Todo一覧
@@ -114,22 +120,18 @@ function App() {
     setEditTodo("");
     setEditingId(null);
   };
-
   return (
     <>
-      <div className="all-todo">
-        <div className="container">
-          <h1 className="TODO">TODO</h1>
-          {/* TODO切り替えボタン */}
-          <div className="action-button">
-            <Link href={'/components/CompleteTodo'}>
-            <button>
-              完了一覧
-            </button>
-            </Link>
-          <Link href={'/components/AddTodo'}><button>追加</button></Link>
-          </div>
-          {/* <div className="input-area">
+      <h1 className="TODO">TODO</h1>
+      <div className="action-button">
+        <Link href={"/components/CompleteTodo"}>
+          <button>完了一覧</button>
+        </Link>
+        <Link href={"/components/AddTodo"}>
+          <button>追加</button>
+        </Link>
+      </div>
+      {/* <div className="input-area">
             <input
               onChange={(e) => setAdditionalTodo(e.target.value)}
               value={additionalTodo}
@@ -146,94 +148,85 @@ function App() {
               </button>
             </div>
           </div> */}
-          <div className="incomplete-area">
-            <p className="title">TODO一覧</p>
-            <ul>
-              <FlipMove>
-                {todoList
-                  .filter((todo) => todo.status === "Incomplete")
-                  .map((todoItem, index) => {
-                    return (
-                      <li key={todoItem.id}>
-                        <div className="list-row">
-                          {editingId === todoItem.id ? (
-                            <>
-                              <input
-                                onChange={(e) => setEditTodo(e.target.value)}
-                                value={editTodo}
-                                className="editTodoInput"
-                              />
-                              <input
-                                onChange={(e) => setEditDate(e.target.value)}
-                                value={editDate}
-                                type="date"
-                              />
-                              <button onClick={clickSaveEdit}>保存</button>
-                            </>
-                          ) : (
-                            <>
-                              <p className="p-index">{index + 1}</p>
-                              <p>：</p>
-                              <p className="todo-item">{todoItem.todo}</p>
-                              <button
-                                onClick={() => clickCompleteTodo(todoItem.id)}
-                              >
-                                完了
-                              </button>
-                              <button
-                                onClick={() => clickDeleteTodoList(todoItem.id)}
-                              >
-                                削除
-                              </button>
-                              <button onClick={() => clickEditTodo(todoItem)}>
-                                編集
-                              </button>
-                              <p className="dueDateP">
-                                期限{todoItem.deadlineDate}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </li>
-                    );
-                  })}
-              </FlipMove>
-            </ul>
-          </div>
-          <div className="complete-area">
-            <p className="title">完了のTODO一覧</p>
-            <ul>
-              <FlipMove>
-                {todoList
-                  .filter((todo) => todo.status === "Complete")
-                  .map((todoItem, index) => {
-                    return (
-                      <li key={todoItem.id}>
-                        <div className="list-row">
+      <div className="incomplete-area">
+        <ul>
+          <FlipMove>
+            {todoList
+              .filter((todo) => todo.status === "Incomplete")
+              .map((todoItem, index) => {
+                return (
+                  <li key={todoItem.id}>
+                    <div className="list-row">
+                      {editingId === todoItem.id ? (
+                        <>
+                          <input
+                            onChange={(e) => setEditTodo(e.target.value)}
+                            value={editTodo}
+                            className="editTodoInput"
+                          />
+                          <input
+                            onChange={(e) => setEditDate(e.target.value)}
+                            value={editDate}
+                            type="date"
+                          />
+                          <button onClick={clickSaveEdit}>保存</button>
+                        </>
+                      ) : (
+                        <>
                           <p className="p-index">{index + 1}</p>
                           <p>：</p>
                           <p className="todo-item">{todoItem.todo}</p>
                           <button
-                            onClick={() => clickIncompleteTodo(todoItem.id)}
+                            onClick={() => clickCompleteTodo(todoItem.id)}
                           >
-                            未着手
+                            完了
                           </button>
                           <button
                             onClick={() => clickDeleteTodoList(todoItem.id)}
                           >
                             削除
                           </button>
+                          <button onClick={() => clickEditTodo(todoItem)}>
+                            編集
+                          </button>
                           <p className="dueDateP">
                             期限{todoItem.deadlineDate}
                           </p>
-                        </div>
-                      </li>
-                    );
-                  })}
-              </FlipMove>
-            </ul>
-          </div>
-        </div>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+          </FlipMove>
+        </ul>
+      </div>
+      <div className="complete-area">
+        <p className="title">完了のTODO一覧</p>
+        <ul>
+          <FlipMove>
+            {todoList
+              .filter((todo) => todo.status === "Complete")
+              .map((todoItem, index) => {
+                return (
+                  <li key={todoItem.id}>
+                    <div className="list-row">
+                      <p className="p-index">{index + 1}</p>
+                      <p>：</p>
+                      <p className="todo-item">{todoItem.todo}</p>
+                      <button onClick={() => clickIncompleteTodo(todoItem.id)}>
+                        未着手
+                      </button>
+                      <button onClick={() => clickDeleteTodoList(todoItem.id)}>
+                        削除
+                      </button>
+                      <p className="dueDateP">期限{todoItem.deadlineDate}</p>
+                    </div>
+                  </li>
+                );
+              })}
+          </FlipMove>
+        </ul>
       </div>
     </>
   );

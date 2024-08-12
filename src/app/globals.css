@@ -38,7 +38,7 @@ button:hover {
   display: flex;
   flex-direction: row;
 }
-.action-button * button{
+button{
   padding-left: 1rem; /* px-4 */
   padding-right: 1rem;
   padding-top: 0.5rem; /* py-2 */

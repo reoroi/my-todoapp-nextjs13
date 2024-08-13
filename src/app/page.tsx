@@ -1,7 +1,7 @@
 "use client";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import "./App.css";
 // import db from "./firebase";
 // import {
 //   collection,
@@ -13,12 +13,13 @@ import { useEffect, useState } from "react";
 // } from "firebase/firestore";
 import FlipMove from "react-flip-move";
 import { v4 as uuidv4 } from 'uuid';
+import db from "./firebase";
 
 
 type TodoItem = {
   id: string;
   todo: string;
-  deadlineDate: string;
+  deadLineDate: string;
   status: string;
 };
 
@@ -29,11 +30,29 @@ function App() {
 
   const [additionalTodo, setAdditionalTodo] = useState<string>(""); //追加TODO
   const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
-  const [todoList, setTodoList] = useState<TodoItem[]>([]); //Todo一覧
   const [editingId, setEditingId] = useState<string | null>(null); //
   const [editTodo, setEditTodo] = useState<string>(""); //編集後TODO
   const [editDate, setEditDate] = useState<string>(""); //編集後Date
   const [isTodoSwitch, setIsTodoSwitch] = useState<boolean>(true); //画面切り替え
+const [todoList,setTodoList]=useState<TodoItem[]>([])
+
+useEffect(() => {
+  const todoData = collection(db, "posts");
+  onSnapshot(todoData, (querySnapshot) => {
+    const todoData = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        todo: data.todo,
+        deadLineDate: data.deadLineDate,
+        status: data.status,
+      } as TodoItem;
+    });
+    setTodoList(todoData);
+  });
+}, []);
+
+  
 
   //firebaseからデータを取得
   // useEffect(() => {
@@ -103,7 +122,7 @@ function App() {
   const clickEditTodo = (todo: TodoItem) => {
     setEditingId(todo.id);
     setEditTodo(todo.todo);
-    setEditDate(todo.deadlineDate);
+    setEditDate(todo.deadLineDate);
   };
 
   //編集保存ボタン
@@ -131,23 +150,6 @@ function App() {
           <button>追加</button>
         </Link>
       </div>
-      {/* <div className="input-area">
-            <input
-              onChange={(e) => setAdditionalTodo(e.target.value)}
-              value={additionalTodo}
-              placeholder="TODOを入力してください"
-            />
-            <div className="input-button">
-              <input
-                onChange={(e) => setAdditionalDate(e.target.value)}
-                type="date"
-                value={additionalDate || ""}
-              />
-              <button onClick={clickAdd} className="add-btn">
-                追加
-              </button>
-            </div>
-          </div> */}
       <div className="incomplete-area">
         <ul>
           <FlipMove>
@@ -169,28 +171,30 @@ function App() {
                             value={editDate}
                             type="date"
                           />
-                          <button onClick={clickSaveEdit}>保存</button>
+                          <button className="todoList-btn" onClick={clickSaveEdit}>保存</button>
                         </>
                       ) : (
                         <>
                           <p className="p-index">{index + 1}</p>
                           <p>：</p>
                           <p className="todo-item">{todoItem.todo}</p>
-                          <button
+                          <button 
+                          className="todoList-btn"
                             onClick={() => clickCompleteTodo(todoItem.id)}
                           >
                             完了
                           </button>
                           <button
+                          className="todoList-btn"
                             onClick={() => clickDeleteTodoList(todoItem.id)}
                           >
                             削除
                           </button>
-                          <button onClick={() => clickEditTodo(todoItem)}>
+                          <button className="todoList-btn" onClick={() => clickEditTodo(todoItem)}>
                             編集
                           </button>
                           <p className="dueDateP">
-                            期限{todoItem.deadlineDate}
+                            期限{todoItem.deadLineDate}
                           </p>
                         </>
                       )}
@@ -220,7 +224,7 @@ function App() {
                       <button onClick={() => clickDeleteTodoList(todoItem.id)}>
                         削除
                       </button>
-                      <p className="dueDateP">期限{todoItem.deadlineDate}</p>
+                      <p className="dueDateP">期限{todoItem.deadLineDate}</p>
                     </div>
                   </li>
                 );

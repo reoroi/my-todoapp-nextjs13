@@ -1,7 +1,26 @@
 import React from "react";
 import "../../globals.css";
+import Link from "next/link";
 
 const AddTodo = () => {
+        {/* <div className="input-area">
+            <input
+              onChange={(e) => setAdditionalTodo(e.target.value)}
+              value={additionalTodo}
+              placeholder="TODOを入力してください"
+            />
+            <div className="input-button">
+              <input
+                onChange={(e) => setAdditionalDate(e.target.value)}
+                type="date"
+                value={additionalDate || ""}
+              />
+              <button onClick={clickAdd} className="add-btn">
+                追加
+              </button>
+            </div>
+          </div> */}
+
   return (
     <div>
       <h1 className="TODO">AddTodo</h1>
@@ -21,7 +40,7 @@ const AddTodo = () => {
               />
             </div>
             <div className="addTodo-content">
-              <p className="addtodo-p">日付</p>
+              <p className="addtodo-p">期限日付</p>
               <input
                 // onChange={(e) => setTitle(e.target.value)}
                 className="addTodo-input"
@@ -29,15 +48,19 @@ const AddTodo = () => {
               />
             </div>
           </div>
-
+          <div className="addTodo-Horizontal">
           <button
+          className=""
             type="submit"
-            // className={`py-2 px-4 border rounded-md ${loading ? ' bg-orange-300 cursor-not-allowed rounded-full' : 'bg-orange-500 hover:bg-orange-500' }` }
             // disabled={loading}
           >
             追加
           </button>
-        </form>{" "}
+          <Link href={'/'}>
+          <button>戻る</button>
+          </Link>
+          </div>
+        </form>
       </div>
     </div>
   );

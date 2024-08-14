@@ -1,4 +1,6 @@
+import { addDoc, collection } from "firebase/firestore";
 import { TodoItem } from "./types";
+import db from "./firebase";
 
 export const clickAdd = () => {
   // let isFormatCheck: boolean = true;
@@ -57,4 +59,43 @@ export const clickSaveEdit = () => {
   // });
   // setEditTodo("");
   // setEditingId(null);
+};
+
+// AddTodoページでの追加ボタン関数
+export const handleSubmit = async (
+  e: React.FormEvent,
+  additionalTodo: string,
+  additionalDate: string,
+  additionalTodoDetail: string,
+  setAdditionalDate: React.Dispatch<React.SetStateAction<string>>,
+  setAdditionalTodoDetail: React.Dispatch<React.SetStateAction<string>>,
+  setAdditionalTodo: React.Dispatch<React.SetStateAction<string>>
+) => {
+  e.preventDefault();
+
+  let isFormatCheck: boolean = true;
+  let alertMessage: string = "";
+  if (additionalTodo === "") {
+    alertMessage += "TODOを入力してください\n";
+    isFormatCheck = false;
+  }
+  if (additionalDate === "") {
+    alertMessage += "期限を入力してください";
+    isFormatCheck = false;
+  }
+  if (isFormatCheck) {
+    await addDoc(collection(db, "posts"), {
+      todo: additionalTodo,
+      deadLineDate: additionalDate,
+      todoDetail: additionalTodoDetail,
+      status: "Incomplete",
+    });
+    setAdditionalDate("");
+    setAdditionalTodo("");
+    setAdditionalTodoDetail("");
+  
+  } else {
+    alert(alertMessage);
+  }
+
 };

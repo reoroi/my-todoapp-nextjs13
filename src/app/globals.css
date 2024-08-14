@@ -39,6 +39,7 @@ button:hover {
 .action-button {
   display: flex;
   flex-direction: row;
+  margin: 8px;
 }
 
 button {
@@ -57,13 +58,13 @@ button {
 }
 
 .container {
+  display: flex;
+  margin: auto;
   height: auto;
   min-width: 100px;
   max-width: 650px;
   display: flex;
   flex-direction: column;
-  display: flex;
-  align-items: center;
   padding-left: 1rem;
   /* px-8 */
   padding-right: 1rem;

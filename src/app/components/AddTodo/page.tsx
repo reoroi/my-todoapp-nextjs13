@@ -1,8 +1,16 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import "../../globals.css";
 import Link from "next/link";
 
 const AddTodo = () => {
+
+  const [additionalTodo, setAdditionalTodo] = useState<string>(""); //追加TODO
+  const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
+
+    // 追加ボタン
+  
         {/* <div className="input-area">
             <input
               onChange={(e) => setAdditionalTodo(e.target.value)}

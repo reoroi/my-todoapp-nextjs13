@@ -26,12 +26,14 @@ button {
   padding: 10px;
   font-weight: bold;
   border-bottom: 4px solid #204786;
-  border-radius: 32px;
+  background-color: #5193ff;
+  color: #ffffff;
+  border-radius: 3px;
   transition: 0.2s;
 }
 
 button:hover {
-  background-color: #0364ff !important;
+  background-color: #0364ff ;
   color: #f8fbff;
   cursor: pointer;
 }
@@ -42,20 +44,6 @@ button:hover {
   margin: 8px;
 }
 
-button {
-  padding-left: 1rem;
-  /* px-4 */
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  /* py-2 */
-  padding-bottom: 0.5rem;
-  background-color: #5193ff;
-  /* bg-blue-500 */
-  color: #ffffff;
-  /* text-white */
-  border-radius: 0.25rem;
-  /* rounded */
-}
 
 .container {
   display: flex;
@@ -103,9 +91,8 @@ input {
 button:active {
   margin-top: 3px;
   color: #fff;
-  background: #001fb9;
+  background-color: #001fb9;
   border-bottom: 1px solid #000000;
-
 }
 
 input {
@@ -242,11 +229,8 @@ input {
 
 .list-row .todoList-btn {
   text-align: center;
-  width: auto;
   margin: 0;
-  padding: 4px;
+  padding: 3px;
   font-weight: bold;
-  border-bottom: 4px solid #204786;
   border-radius: 24px;
-  transition: 0.2s;
 }

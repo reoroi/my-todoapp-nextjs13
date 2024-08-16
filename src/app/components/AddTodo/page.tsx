@@ -5,13 +5,37 @@ import "../../globals.css";
 import Link from "next/link";
 import { handleClientScriptLoad } from "next/script";
 import { handleSubmit } from "@/app/function";
+import { useRouter } from "next/navigation";
 
 const AddTodo = () => {
   const [additionalTodo, setAdditionalTodo] = useState<string>(""); //追加TODO
   const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
   const [additionalTodoDetail, setAdditionalTodoDetail] = useState<string>("");
+  const router=useRouter()
 
   // 追加ボタン
+  const onSubmit=async(e:React.FormEvent)=>{
+    
+    e.preventDefault()
+    
+    //useRouterでTodo追加後ホームへ戻る
+    //function.tsxにて追加処理を実行
+    try{
+      await handleSubmit(
+        e,
+        additionalTodo,
+        additionalDate,
+        additionalTodoDetail,
+        setAdditionalDate,
+        setAdditionalTodo,
+        setAdditionalTodoDetail,
+      )
+      //ホームへ戻る
+      router.push('/')
+    }catch(error){
+      console.error('エラーが発生しました',error)
+    }
+  }
 
   return (
     <div>
@@ -19,17 +43,7 @@ const AddTodo = () => {
       <div className="addTodo-content">
         <form
           className="addTodo-form"
-          onSubmit={async (e) =>
-            await handleSubmit(
-              e,
-              additionalTodo,
-              additionalDate,
-              additionalTodoDetail,
-              setAdditionalDate,
-              setAdditionalTodo,
-              setAdditionalTodoDetail
-            )
-          }
+          onSubmit={onSubmit}
         >
           <div className="content-lastchild">
             <div className="addTodo-content">

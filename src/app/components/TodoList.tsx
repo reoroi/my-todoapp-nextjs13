@@ -3,33 +3,16 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import FlipMove from "react-flip-move";
-import { TodoItem } from '../types';
 import db from '../firebase';
 import { clickCompleteTodo, clickDeleteTodoList, clickEditTodo, clickSaveEdit } from '../function';
+import { useGetTodoList } from '../Tododata';
 
 const TodoList = () => {
   const [editingId, setEditingId] = useState<string | null>(null); //
-  const [todoList,setTodoList]=useState<TodoItem[]>([])
   const [editTodo, setEditTodo] = useState<string>(""); //編集後TODO
   const [editDate, setEditDate] = useState<string>(""); //編集後Date
 
-  useEffect(() => {
-    const todoData = collection(db, "posts");
-    onSnapshot(todoData, (querySnapshot) => {
-      const todoData = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          todo: data.todo,
-          deadLineDate: data.deadLineDate,
-          status: data.status,
-        } as TodoItem;
-      });
-      setTodoList(todoData);
-    });
-  }, []);
-  
-
+const todoList=useGetTodoList()
 
   return (
     <ul>
@@ -74,6 +57,11 @@ const TodoList = () => {
                     <button className="todoList-btn" onClick={() => clickEditTodo(todoItem)}>
                       編集
                     </button>
+                    <Link href={`/DetailTodo/${todoItem.id}`}>
+                    <button className="todoList-btn">
+                      詳細
+                    </button>
+                    </Link>
                     <p className="dueDateP">
                       期限{todoItem.deadLineDate}
                     </p>

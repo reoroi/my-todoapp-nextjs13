@@ -9,7 +9,6 @@ export const useGetTodoList = () => {
 
   useEffect(() => {
     const todoData = collection(db, "posts");
-
     // onSnapshot の返り値として unsubscribe 関数が返される
     const unsubscribe = onSnapshot(todoData, (querySnapshot) => {
       const todos = querySnapshot.docs.map((doc) => {

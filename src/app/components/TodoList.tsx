@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import FlipMove from "react-flip-move";
 import db from '../firebase';
 import { clickCompleteTodo, clickDeleteTodoList, clickEditTodo, clickSaveEdit } from '../function';
-import { useGetTodoList } from '../Tododata';
+import { useGetTodoList } from '../GetTodoData';
 
 const TodoList = () => {
   const [editingId, setEditingId] = useState<string | null>(null); //

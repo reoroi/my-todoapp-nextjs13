@@ -1,5 +1,5 @@
-import { addDoc, collection } from "firebase/firestore";
-import { TodoItem } from "./types";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { TodoItemType } from "./types";
 import db from "./firebase";
 
 export const clickAdd = () => {
@@ -27,10 +27,21 @@ export const clickAdd = () => {
 };
 
 // 編集ボタン
-export const clickEditTodo = (todo: TodoItem) => {
-  // setEditingId(todo.id);
-  // setEditTodo(todo.todo);
-  // setEditDate(todo.deadLineDate);
+export const clickEditTodo = (
+  setEditTodo: React.Dispatch<React.SetStateAction<string>>,
+  setEditTodoDetail: React.Dispatch<React.SetStateAction<string>>,
+  setEditDate: React.Dispatch<React.SetStateAction<string>>,
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
+  isEditing: boolean, todoDetail: TodoItemType | undefined) => {
+  //編集状態のフラグを反転させる
+  setIsEditing((prev) => !prev);
+  if (!isEditing) {
+    //todoDetail.todoがundefinedである場合''を返す
+    setEditTodo(todoDetail?.todo || '');
+    setEditDate(todoDetail?.deadLineDate || '')
+    setEditTodoDetail(todoDetail?.todoDetail || '')
+  }
+
 };
 
 //完了ボタン
@@ -47,18 +58,23 @@ export const clickDeleteTodoList = (targetTodo: string) => {
 };
 
 //編集保存ボタン
-export const clickSaveEdit = () => {
-  // todoList.forEach((todo) => {
-  //   if (todo.id === editingId) {
-  //     const washingtonRef = doc(db, "TODO", todo.id);
-  //     updateDoc(washingtonRef, {
-  //       todo: editTodo,
-  //       deadlineDate: editDate,
-  //     });
-  //   }
-  // });
-  // setEditTodo("");
-  // setEditingId(null);
+export const clickSaveEdit = (id: string, editTodo: string, editDate: string, editTodoDetail: string,
+  setEditTodo: React.Dispatch<React.SetStateAction<string>>,
+  setEditTodoDetail: React.Dispatch<React.SetStateAction<string>>,
+  setEditDate: React.Dispatch<React.SetStateAction<string>>,
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
+  const washingtonRef = doc(db, "posts", id);
+  updateDoc(washingtonRef, {
+    todo: editTodo,
+    todoDetail: editTodoDetail,
+    deadLineDate: editDate,
+  });
+
+  setEditTodo("");
+  setEditTodoDetail('')
+  setEditDate('')
+  setIsEditing(false);
 };
 
 // AddTodoページでの追加ボタン関数
@@ -93,7 +109,7 @@ export const handleSubmit = async (
     setAdditionalDate("");
     setAdditionalTodo("");
     setAdditionalTodoDetail("");
-  
+
   } else {
     alert(alertMessage);
   }

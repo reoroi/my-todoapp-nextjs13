@@ -13,11 +13,13 @@ export const useGetTodoList = () => {
     const unsubscribe = onSnapshot(todoData, (querySnapshot) => {
       const todos = querySnapshot.docs.map((doc) => {
         const data = doc.data();
+
         return {
           id: doc.id,
           todo: data.todo,
           deadLineDate: data.deadLineDate,
           status: data.status,
+          todoDetail:data.todoDetail
         } as TodoItemType;
       });
       setTodoList(todos); // 取得したデータを状態に保存
@@ -28,3 +30,5 @@ export const useGetTodoList = () => {
   }, []);
   return todoList
 }
+
+

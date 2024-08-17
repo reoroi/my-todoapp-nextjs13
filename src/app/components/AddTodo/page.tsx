@@ -12,7 +12,6 @@ const AddTodo = () => {
   const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
   const [additionalTodoDetail, setAdditionalTodoDetail] = useState<string>("");
   const router=useRouter()
-
   // 追加ボタン
   const onSubmit=async(e:React.FormEvent)=>{
     
@@ -36,7 +35,6 @@ const AddTodo = () => {
       console.error('エラーが発生しました',error)
     }
   }
-
   return (
     <div>
       <h1 className="TODO">AddTodo</h1>
@@ -47,7 +45,7 @@ const AddTodo = () => {
         >
           <div className="content-lastchild">
             <div className="addTodo-content">
-              <p className="addtodo-p">TodoTitle</p>
+              <p className="addTodo-p">TodoTitle</p>
               <input
                 className="addTodo-input"
                 placeholder="TodoTitleを入力してください"
@@ -57,7 +55,7 @@ const AddTodo = () => {
               />
             </div>
             <div className="addTodo-content">
-              <p className="addtodo-p">TODO詳細内容</p>
+              <p className="addTodo-p">TODO詳細内容</p>
               <textarea
                 className="addTodo-input"
                 placeholder="Todoの詳細内容を入力してください"
@@ -67,7 +65,7 @@ const AddTodo = () => {
               />
             </div>
             <div className="addTodo-content">
-              <p className="addtodo-p">期限日付</p>
+              <p className="addTodo-p">期限日付</p>
               <input
                 onChange={(e) => setAdditionalDate(e.target.value)}
                 className="addTodo-input"

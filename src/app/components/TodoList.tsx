@@ -1,13 +1,12 @@
-'use client'
 import Link from 'next/link';
 import FlipMove from "react-flip-move";
-import { clickCompleteTodo, clickDeleteTodoList, clickEditTodo, clickSaveEdit } from '../function';
+import { clickCompleteTodo } from '../function';
 import { useGetTodoList } from '../GetTodoData';
+import { TodoItemType } from '../types';
 
-const TodoList = () => {
+const TodoList = ({todoList}:{todoList:TodoItemType[]}) => {
 
-  const todoList = useGetTodoList()
-
+  //firebaseからTODOデータを取得
   return (
     <ul>
       <FlipMove>
@@ -36,7 +35,8 @@ const TodoList = () => {
                   </p>
                 </div>
               </li>
-              )})}
+            )
+          })}
       </FlipMove>
     </ul>
   )

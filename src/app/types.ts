@@ -3,4 +3,5 @@ export type TodoItemType = {
   todo: string;
   deadLineDate: string;
   status: string;
+  todoDetail:string;
 };

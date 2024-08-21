@@ -28,9 +28,10 @@ const AddTodo = () => {
         setAdditionalDate,
         setAdditionalTodo,
         setAdditionalTodoDetail,
+        router,
       )
       //ホームへ戻る
-      router.push('/')
+      
     }catch(error){
       console.error('エラーが発生しました',error)
     }

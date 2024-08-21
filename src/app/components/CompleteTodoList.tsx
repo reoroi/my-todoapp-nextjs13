@@ -1,27 +1,27 @@
-import Link from 'next/link';
+import React from 'react'
+import { TodoItemType } from '../types'
 import FlipMove from "react-flip-move";
-import { clickCompleteTodo } from '../function';
-import { TodoItemType } from '../types';
+import Link from 'next/link';
+import { clickIncompleteTodo } from '../function';
 
-const TodoList = ({todoList}:{todoList:TodoItemType[]}) => {
-
+//完了TodoListの表示
+const CompleteTodoList = ({completeTodo}:{completeTodo:TodoItemType[]}) => {
   return (
     <ul>
       <FlipMove>
-        {todoList
-          .filter((todo) => todo.status === "Incomplete")
+        {completeTodo
+          .filter((todo) => todo.status === "Complete")
           .map((todoItem, index) => {
             return (
-              <li className='todoList' key={todoItem.id}>
+              <li className='todoCompleteList' key={todoItem.id}>
                 <div className="list-row">
                   <p className="p-index">{index + 1}</p>
                   <p>：</p>
                   <p className="todo-item">{todoItem.todo}</p>
                   <button
                     className="todoList-btn"
-                    onClick={() => clickCompleteTodo(todoItem.id)}
-                  >
-                    完了
+                    onClick={()=>clickIncompleteTodo(todoItem.id)}                  >
+                    戻す
                   </button>
                   <Link href={`/DetailTodo/${todoItem.id}`}>
                     <button className="todoList-btn">
@@ -40,4 +40,4 @@ const TodoList = ({todoList}:{todoList:TodoItemType[]}) => {
   )
 }
 
-export default TodoList
+export default CompleteTodoList

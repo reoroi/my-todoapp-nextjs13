@@ -23,9 +23,6 @@ function App() {
       <div className="incomplete-area">
         <TodoList todoList={todoList}/>
       </div>
-      <div className="complete-area">
-        <p className="title">完了のTODO一覧</p>
-      </div>
     </div>
   );
 }

@@ -108,13 +108,10 @@ input {
 }
 
 .incomplete-area {
-  border: 2px solid #919397;
-  background-color: #dcdcdc;
   width: 100%;
   min-height: 200px;
   padding: 8px;
   margin: 8px;
-  border-radius: 8px;
 }
 
 .complete-area {
@@ -324,4 +321,22 @@ TodoDetail-content {
 .editingTextarea{
   background-color: #ff5353 !important;
 
+}
+.todoList{
+  justify-content: space-between; 
+  padding: 8px; 
+  margin: 4px;
+  background-color: #ffffff; 
+  border-left: 4px solid #3b82f6; 
+  border-radius: 0.25rem; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* ボックスシャドウ */
+}
+.todoCompleteList{
+  justify-content: space-between; 
+  padding: 8px; 
+  margin: 4px;
+  background-color: #a8bcdc; 
+  border-left: 4px solid #3b82f6; 
+  border-radius: 0.25rem; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* ボックスシャドウ */
 }

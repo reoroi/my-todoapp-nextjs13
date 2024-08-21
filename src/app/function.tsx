@@ -1,6 +1,7 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { TodoItemType } from "./types";
 import db from "./firebase";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const clickAdd = () => {
   // let isFormatCheck: boolean = true;
@@ -44,17 +45,31 @@ export const clickEditTodo = (
 
 };
 
+//未完了ボタン
+export const clickIncompleteTodo = (targetTodoId: string) => {
+  const washingtonRef = doc(db, "posts", targetTodoId);
+  updateDoc(washingtonRef, {
+    status: "Incomplete",
+  });
+};
+
+
 //完了ボタン
 export const clickCompleteTodo = (targetTodoId: string) => {
-  // const washingtonRef = doc(db, "TODO", targetTodoId);
-  // updateDoc(washingtonRef, {
-  //   status: "Complete",
-  // });
+  const washingtonRef = doc(db, "posts", targetTodoId);
+  updateDoc(washingtonRef, {
+    status: "Complete",
+  });
 };
 
 //TODO削除ボタン
-export const clickDeleteTodoList = (targetTodo: string) => {
-  // deleteDoc(doc(db, "TODO", targetTodo));
+export const clickDeleteTodoList = async (targetTodo: string,router:AppRouterInstance) => {
+  try{
+    await deleteDoc(doc(db, "posts", targetTodo));
+    router.push('/')
+  }catch(error){
+    console.log(error,'エラーが発生しました')
+  }
 };
 
 //編集保存ボタン
@@ -85,7 +100,8 @@ export const handleSubmit = async (
   additionalTodoDetail: string,
   setAdditionalDate: React.Dispatch<React.SetStateAction<string>>,
   setAdditionalTodoDetail: React.Dispatch<React.SetStateAction<string>>,
-  setAdditionalTodo: React.Dispatch<React.SetStateAction<string>>
+  setAdditionalTodo: React.Dispatch<React.SetStateAction<string>>,
+  router:AppRouterInstance
 ) => {
   e.preventDefault();
 
@@ -109,6 +125,7 @@ export const handleSubmit = async (
     setAdditionalDate("");
     setAdditionalTodo("");
     setAdditionalTodoDetail("");
+    router.push('/')
 
   } else {
     alert(alertMessage);

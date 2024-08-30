@@ -3,12 +3,12 @@ import FlipMove from "react-flip-move";
 import { clickCompleteTodo } from '../function';
 import { TodoItemType } from '../types';
 
-const TodoList = ({todoList}:{todoList:TodoItemType[]}) => {
+const TodoList = ({incompleteTodo}:{incompleteTodo:TodoItemType[]}) => {
 
   return (
     <ul>
       <FlipMove>
-        {todoList
+        {incompleteTodo
           .filter((todo) => todo.status === "Incomplete")
           .map((todoItem, index) => {
             return (

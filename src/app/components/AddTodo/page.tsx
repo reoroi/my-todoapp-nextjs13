@@ -77,7 +77,7 @@ const AddTodo = () => {
           </div>
           <div className="addTodo-Horizontal">
             <button type="submit">追加</button>
-            <Link href={"/"}>
+            <Link href={"/components/IncompleteTodo"}>
               <button>戻る</button>
             </Link>
           </div>

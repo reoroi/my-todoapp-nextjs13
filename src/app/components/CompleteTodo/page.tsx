@@ -3,16 +3,21 @@ import { useGetTodoList } from '@/app/GetTodoData'
 import React from 'react'
 import CompleteTodoList from '../CompleteTodoList'
 import Link from 'next/link'
-import { clickIncompleteTodo } from '@/app/function'
 
 //完了TODO一覧
-const CompleteTodo = () => {//
+const CompleteTodo = () => {
+  
   const completeTodo=useGetTodoList()
+
   return (
     <div>
+            <Link href={'/'}>
+      <button className='logout-btn'>ログアウト</button>
+      </Link>
+
       <h1 className="TODO">CompleteTodo</h1>
       <div className="action-button">
-        <Link href={'/'}>
+        <Link href={'/components/IncompleteTodo'}>
           <button>未完了一覧</button>
         </Link>
       </div>

@@ -340,3 +340,67 @@ TodoDetail-content {
   border-radius: 0.25rem; 
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* ボックスシャドウ */
 }
+
+.loginForm{
+  background-color: #e2effe;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center;     /* 垂直方向の中央揃え */
+  margin: 24px;
+  height: 400px;
+}
+
+.formContent{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 400px;
+  margin: 8px;
+}
+
+.loginLabel{
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.loginFrom-button{
+  margin-top: 32px;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+.loginFrom-button >button{
+  width: 50%;
+}
+
+.loginFormError{
+  color: rgb(248, 69, 69);
+}
+.authError-h1{
+  color: rgb(248, 69, 69);
+  text-align: center;
+}
+.logout-btn{
+  margin-left: auto;
+  background-color: #ff5353;
+  border-bottom: 4px solid #fe0000;
+  padding: 8px;
+}
+
+  .logout-btn:hover {
+    background-color: #ff0303  ;
+    color: #f8fbff;
+    cursor: pointer;
+  
+  }
+  .logout-btn :active{
+    margin-top: 3px;
+    color: #fff;
+    background-color: #b90000;
+    border-bottom: 1px solid ;
+  }

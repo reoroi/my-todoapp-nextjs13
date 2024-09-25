@@ -1,17 +1,19 @@
 'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import TodoList from '../TodoList'
 import { useGetTodoList } from '@/app/GetTodoData'
+import { clickLogout } from '@/app/function'
+import { currentUserContext } from '../Auth/LoginUserProvider'
 
 const IncompleteTodo = () => {
-
-const incompleteTodo =useGetTodoList()
+  // グローバルで宣言している現在のユーザを宣言
+  const currentUser:string|null=useContext(currentUserContext)
+    // ユーザごとのTODOリストを取得
+  const incompleteTodo =useGetTodoList(currentUser)
   return (
     <div>
-      <Link href={'/'}>
-      <button className='logout-btn'>ログアウト</button>
-      </Link>
+      <button onClick={()=>clickLogout()} className='logout-btn'>ログアウト</button>
       <h1 className="TODO">TODO</h1>
       <div className="action-button">
         <Link href={"/components/CompleteTodo"}>

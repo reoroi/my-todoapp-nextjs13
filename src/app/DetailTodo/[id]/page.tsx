@@ -1,11 +1,12 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams, } from "next/navigation";
 import Link from 'next/link';
 import { useGetTodoList } from '@/app/GetTodoData';
 import { TodoItemType } from '@/app/types';
 import { clickDeleteTodoList, clickEditTodo, clickSaveEdit } from '@/app/function';
 import { useRouter } from 'next/navigation';
+import { currentUserContext } from '@/app/components/Auth/LoginUserProvider';
 
 
 const DetailTodo = () => {
@@ -17,8 +18,11 @@ const DetailTodo = () => {
   const params = useParams()
   //対象のid(url)を取得
   const id = params.id as string
-  //firebaseからすべてのTodoデータ取得
-  const todoList: TodoItemType[] = useGetTodoList()
+  //グローバルで宣言しているユーザ
+  const currentUser = useContext(currentUserContext);  
+
+  //firebaseからユーザ事のTodoデータ取得
+  const todoList: TodoItemType[] = useGetTodoList(currentUser)
   //idが一致するデータを取得
 const todoDetail = todoList.find((todo) => todo.id === id)
 const router =useRouter()

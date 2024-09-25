@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { useContext } from "react";
-import { LoginUserContext, LoginUserProvider } from "./userContext";
-import { UserContextType } from "./types";
+import LoginUserProvider from "./components/Auth/LoginUserProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,14 +12,13 @@ export const metadata: Metadata = {
 
 
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    // ユーザ情報をどこでも使えるようLoginUserProviderで設定する
+    // 現在ログインしているか常時監視→LoginStateConfirmation
     <LoginUserProvider>
       <html lang="en">
         <body>

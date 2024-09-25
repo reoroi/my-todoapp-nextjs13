@@ -7,7 +7,7 @@ export type TodoItemType = {
 };
 
 export type UserDataType={
-  user:string,
+  email:string,
   password:string,
 }
 
@@ -20,4 +20,14 @@ export type UserContextType = {
 export type LoginDisplayProps = {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export type registrationUserTypes={
+  email:string,
+  password:string,
+  name:string
+}
+
+export type firebaseErrorTypes={
+  Firebase:string
 }

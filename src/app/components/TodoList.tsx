@@ -4,7 +4,6 @@ import { clickCompleteTodo } from '../function';
 import { TodoItemType } from '../types';
 
 const TodoList = ({incompleteTodo}:{incompleteTodo:TodoItemType[]}) => {
-
   return (
     <ul>
       <FlipMove>
@@ -12,7 +11,7 @@ const TodoList = ({incompleteTodo}:{incompleteTodo:TodoItemType[]}) => {
           .filter((todo) => todo.status === "Incomplete")
           .map((todoItem, index) => {
             return (
-              <li className='todoList' key={todoItem.id}>
+            <li className='todoList' key={todoItem.id}>
                 <div className="list-row">
                   <p className="p-index">{index + 1}</p>
                   <p>：</p>

@@ -1,21 +1,21 @@
 "use client";
 
 import React, { useState, createContext, useContext } from "react";
-import { loginSubmit } from "./function";
-import { LoginDisplayProps, UserContextType, UserDataType } from "./types";
 import { useForm } from "react-hook-form";
-import { LoginUserContext } from "./userContext";
-import { useRouter } from 'next/navigation';
+import { LoginUserContext } from "../../userContext";
+import { useRouter } from "next/navigation";
+import { getAuth } from "firebase/auth";
+import { loginSubmit } from "../../function";
+import { UserContextType, UserDataType } from "@/app/types";
+import Link from "next/link";
 
 // ユーザコンテキストを作成
 
 const LoginDisplay = () => {
   // ログインしているユーザ情報:
-  const { setLoginUser } = useContext(LoginUserContext) as UserContextType;
-  const [authError,setAuthError]=useState('')
+  const [authError, setAuthError] = useState("");
   // ログイン成功後IncompleteTodoへ
-  const router=useRouter()
-
+  const router = useRouter();
 
   //useFormで使うもの
   const {
@@ -24,28 +24,32 @@ const LoginDisplay = () => {
     formState: { errors },
   } = useForm<UserDataType>({ mode: "onBlur" });
 
-  return (
-    <div className="loginForm">
-      <form
+
+
+return (
+    <div className="loginFormContent">
+      <Link href={"/components/Auth"}>
+        <button>ユーザ追加</button>
+      </Link>
+      <form className="formContent"
         onSubmit={handleSubmit((loginData: UserDataType) =>
-          loginSubmit(loginData, setLoginUser,setAuthError,router)
+          loginSubmit(loginData, setAuthError, router)//ユーザ情報の認証
         )}
-        >
-        <h1 className="TODO">Login Form</h1>
-        <h1 className="authError-h1">{authError}</h1>
-        <div className="formContent">
+      >
+          <h1 className="TODO">Login Form</h1>
+          <h1 className="authError-h1">{authError}</h1>
           <label className="loginLabel" htmlFor="名前">
-            ユーザ名
+            メールアドレス
           </label>
           <input
             placeholder="ユーザ名を入力してください"
-            type="text"
-            {...register("user", { required: "ユーザ名を入力してください" })}
+            type="email"
+            {...register("email", { required: "メールアドレスを入力してください" })}
           />
-          <p className="loginFormError">{errors.user?.message as React.ReactNode}</p>
+          <p className="loginFormError">{errors.email?.message as React.ReactNode}</p>
           <label className="loginLabel" htmlFor="名前">
             パスワード
-          </label>
+        </label>
           <input
             placeholder="パスワードを入力してください"
             type="password"
@@ -54,10 +58,7 @@ const LoginDisplay = () => {
             })}
           />
           <p className="loginFormError">{errors.password?.message as React.ReactNode}</p>
-        </div>
-        <div className="loginFrom-button">
-          <button type="submit">ログイン</button>
-        </div>
+          <button className="loginFrom-button" type="submit">ログイン</button>
       </form>
     </div>
   );

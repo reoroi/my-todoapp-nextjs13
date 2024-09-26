@@ -24,6 +24,7 @@ const AddNewUser = () => {
     <div className="loginFormContent">
       <Link href={"/"}>
         <button>戻る</button>
+        
       </Link>
       <div className="formContent">
         <form onSubmit={handleSubmit((loginData)=>registrationButton(loginData,setAuthError,router))} className="formContent">

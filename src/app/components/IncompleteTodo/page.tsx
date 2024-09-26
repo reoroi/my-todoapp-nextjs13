@@ -1,19 +1,23 @@
-'use client'
-import Link from 'next/link'
-import React, { createContext, useContext } from 'react'
-import TodoList from '../TodoList'
-import { useGetTodoList } from '@/app/GetTodoData'
-import { clickLogout } from '@/app/function'
-import { currentUserContext } from '../Auth/LoginUserProvider'
+"use client";
+import Link from "next/link";
+import React, { useContext } from "react";
+import TodoList from "../TodoList";
+import { useGetTodoList } from "@/app/GetTodoData";
+import { clickLogout } from "@/app/function";
+import { currentUserContext } from "../Auth/LoginUserProvider";
 
 const IncompleteTodo = () => {
   // グローバルで宣言している現在のユーザを宣言
-  const currentUser:string|null=useContext(currentUserContext)
-    // ユーザごとのTODOリストを取得
-  const incompleteTodo =useGetTodoList(currentUser)
+  const currentUser: string | null = useContext(currentUserContext);
+  // ユーザごとのTODOリストを取得
+
+  const incompleteTodo = useGetTodoList(currentUser);
   return (
     <div>
-      <button onClick={()=>clickLogout()} className='logout-btn'>ログアウト</button>
+      <p className="currentUser">ユーザ名：{currentUser}</p>
+      <button onClick={() => clickLogout()} className="logout-btn">
+        ログアウト
+      </button>
       <h1 className="TODO">TODO</h1>
       <div className="action-button">
         <Link href={"/components/CompleteTodo"}>
@@ -27,7 +31,7 @@ const IncompleteTodo = () => {
         <TodoList incompleteTodo={incompleteTodo} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default IncompleteTodo
+export default IncompleteTodo;

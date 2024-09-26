@@ -1,17 +1,20 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import "../../globals.css";
 import Link from "next/link";
 import { handleClientScriptLoad } from "next/script";
 import { handleSubmit } from "@/app/function";
 import { useRouter } from "next/navigation";
+import { currentUserContext } from "../Auth/LoginUserProvider";
 
 const AddTodo = () => {
   const [additionalTodo, setAdditionalTodo] = useState<string>(""); //追加TODO
   const [additionalDate, setAdditionalDate] = useState<string>(""); //追加Date
   const [additionalTodoDetail, setAdditionalTodoDetail] = useState<string>("");
   const router=useRouter()
+  // グローバルで宣言している現在のユーザ
+  const currentUser=useContext(currentUserContext)
   // 追加ボタン
   const onSubmit=async(e:React.FormEvent)=>{
     
@@ -33,11 +36,12 @@ const AddTodo = () => {
       //ホームへ戻る
       
     }catch(error){
-      console.error('エラーが発生しました',error)
+      console.error('TODOの追加処理でエラーが発生しました',error)
     }
   }
   return (
     <div>
+      <p className="currentUser">ユーザ名：{currentUser}</p>
       <h1 className="TODO">AddTodo</h1>
       <div className="addTodo-content">
         <form

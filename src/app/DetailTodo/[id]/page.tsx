@@ -29,6 +29,7 @@ const router =useRouter()
 
   return (
     <div>
+            <p className='currentUser'>ユーザ名：{currentUser}</p>
       <button onClick={()=>clickDeleteTodoList(todoDetail?.id ||'',router)} className='detailTodoDelete-btn'>削除</button>
       <h1 className="TODO">{isEditing ? 'EditingTodo' : 'DetailTodo'}</h1>
       <div className="TodoDetail-content">
@@ -64,7 +65,7 @@ const router =useRouter()
             <button onClick={() => clickSaveEdit(id, editTodo, editDate, editTodoDetail, setEditTodo, setEditTodoDetail, setEditDate, setIsEditing)}>保存</button>
             : <>
               <button onClick={() => clickEditTodo(setEditTodo, setEditTodoDetail, setEditDate, setIsEditing, isEditing, todoDetail)}>編集</button>
-              <Link href={"/"}>
+              <Link href={"/components/IncompleteTodo"}>
                 <button>戻る</button>
               </Link>
             </>

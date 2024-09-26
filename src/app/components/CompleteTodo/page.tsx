@@ -14,6 +14,7 @@ const CompleteTodo = () => {
   const completeTodo = useGetTodoList(currentUser);
   return (
     <div>
+      <p className="currentUser">ユーザ名：{currentUser}</p>
       <button onClick={() => clickLogout()} className="logout-btn">
         ログアウト
       </button>
